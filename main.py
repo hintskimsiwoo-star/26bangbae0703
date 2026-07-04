@@ -68,7 +68,12 @@ if selected_country:
     with col2:
         st.subheader(f"🥇 {selected_country} MBTI 순위 리스트")
         # 깔끔하게 순위가 매겨진 데이터프레임 출력
-        st.dataframe(country_df[[mbti_col, val_col]], use_container_width=True)
+       country_df = country_df.loc[:, ~country_df.columns.duplicated()]
+
+if mbti_col == val_col:
+    st.dataframe(country_df[[mbti_col]], use_container_width=True)
+else:
+    st.dataframe(country_df[[mbti_col, val_col]], use_container_width=True)
 
     # 간단한 요약 정보
     top_mbti = country_df.iloc[0][mbti_col]
